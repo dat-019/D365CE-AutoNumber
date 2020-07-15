@@ -3,12 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-.vs/AutonumberGeneration/v15/Server/sqlite3/db.lock
-.vs/AutonumberGeneration/v15/.suo
-.vs/AutonumberGeneration/v15/Server/sqlite3/storage.ide
-.vs/AutonumberGeneration/v15/Server/sqlite3/storage.ide-shm
-.vs/AutonumberGeneration/v15/Server/sqlite3/storage.ide-wal
-
 # User-specific files
 *.rsuser
 *.suo
