@@ -21,7 +21,15 @@ The Auto Number solution framework needs to be able to generate padded strings i
  
 ### Plugin - Support Optimistic Concurrency
 
+#### Source code - ref at: [AutonumberGeneration](https://github.com/dat-019/D365CE-AutoNumber/blob/master/AutoNumberGeneration/AutonumberGeneration.cs)
 
+#### Plugin Registration
+
+ ![A screenshot of the plugin registration ](/images/PluginRegistrationStep.png)
+ 
+#### Example - Auto number configured for Account entity
+
+ ![A screenshot of auto number configured for Account ](/images/autonumberconfiguredforaccount.png)
 
 ## Reference
 - Optimistic concurrency: https://docs.microsoft.com/en-us/powerapps/developer/common-data-service/optimistic-concurrency
