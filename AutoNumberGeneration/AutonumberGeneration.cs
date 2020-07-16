@@ -14,9 +14,9 @@ namespace AutoNumberGeneration
     /// <summary>
     /// Plugin to create a auto number id for a new record by configured Auto Number string format
     /// </summary>
-    public class Autonumber : PluginBase
+    public class AutonumberGeneration : PluginBase
     {
-        public Autonumber() : base(typeof(Autonumber)) { }
+        public AutonumberGeneration() : base(typeof(AutonumberGeneration)) { }
 
         protected override void ExecuteCrmPlugin(LocalPluginContext localcontext)
         {
@@ -35,13 +35,13 @@ namespace AutoNumberGeneration
                     if (listAutoNumber != null && listAutoNumber.Entities.Count > 0)
                     {
                         var item = listAutoNumber.Entities[0];
-                        bupa_autonumber autoNumberRecord = item.ToEntity<bupa_autonumber>();
-                        var autoNumberFieldName = autoNumberRecord.bupa_FieldName;
+                        new_autonumbers autoNumberRecord = item.ToEntity<new_autonumbers>();
+                        var autoNumberFieldName = autoNumberRecord.new_FieldName;
                         if (!entity.Contains(autoNumberFieldName))
                         {
                             int lastNumber = 1;
                             bool success = false;
-                            string autoNumberFormat = autoNumberRecord.bupa_AutoNumberStringFormat;
+                            string autoNumberFormat = autoNumberRecord.new_AutoNumberStringFormat;
                             int numberOfRetry = 0;
 
                             while (!success)
@@ -53,12 +53,11 @@ namespace AutoNumberGeneration
                                     throw new InvalidPluginExecutionException("A mismatched row version of the auto number record caused the request to fail. Please try again later");
                                 }
 
-                                if (autoNumberRecord.bupa_NextNumber != null)
+                                if (autoNumberRecord.new_NextNumber != null)
                                 {
-                                    lastNumber = autoNumberRecord.bupa_NextNumber.Value;
+                                    lastNumber = autoNumberRecord.new_NextNumber.Value;
                                 }
-                                autoNumberFormat = autoNumberRecord.bupa_AutoNumberStringFormat;
-                                //autoNumberRecord.bupa_NextNumber = lastNumber + 1;
+                                autoNumberFormat = autoNumberRecord.new_AutoNumberStringFormat;
 
                                 // Create an in-memory auto number object from the retrieved auto number.
                                 var updatedAutonumber = new Entity()
@@ -67,7 +66,7 @@ namespace AutoNumberGeneration
                                     Id = autoNumberRecord.Id,
                                     RowVersion = autoNumberRecord.RowVersion
                                 };
-                                updatedAutonumber["bupa_nextnumber"] = lastNumber + 1;
+                                updatedAutonumber["new_nextnumber"] = lastNumber + 1;
                                 UpdateRequest updateRequest = new UpdateRequest
                                 {
                                     Target = updatedAutonumber,
@@ -141,16 +140,15 @@ namespace AutoNumberGeneration
                                         <attribute name='{4}'/>
                                         <attribute name='{5}'/>
                                         <attribute name='{6}'/>
-                                        <attribute name='{7}'/>
                                         <filter type='and'>
-                                            <condition attribute='{8}' operator='eq' value='0' />
-                                            <condition attribute='{9}' operator='eq' value='{0}' />
+                                            <condition attribute='{7}' operator='eq' value='0' />
+                                            <condition attribute='{8}' operator='eq' value='{0}' />
                                         </filter>
                                     </entity>
                     </fetch>",
-                entityName, bupa_autonumber.EntityLogicalName, FieldName.AutoNumber.AutoNumberId, FieldName.AutoNumber.AutoNumberName,
-                FieldName.AutoNumber.AutoNumberFieldName, FieldName.AutoNumber.AutoNumberStringFormat, FieldName.AutoNumber.AutoNumberNextNumber,
-                FieldName.AutoNumber.AutoNumberExecuteOptionSetTextIs, FieldName.AutoNumber.AutoNumberStateCode, FieldName.AutoNumber.AutoNumberEntityName);
+                entityName, new_autonumbers.EntityLogicalName, "new_autonumbersid", "new_name",
+                "new_fieldname", "new_autonumberstringformat", "new_nextnumber",
+                "statecode", "new_entityname");
 
             var fetch = new Microsoft.Xrm.Sdk.Query.FetchExpression(fetchXml);
 
@@ -159,7 +157,7 @@ namespace AutoNumberGeneration
             return results;
         }
 
-        private static bupa_autonumber GetAutoNumberRecord(Entity entity, IOrganizationService service)
+        private static new_autonumbers GetAutoNumberRecord(Entity entity, IOrganizationService service)
         {
             var entityName = entity.LogicalName;
             string fetchXml = string.Format(
@@ -170,16 +168,15 @@ namespace AutoNumberGeneration
                                         <attribute name='{4}'/>
                                         <attribute name='{5}'/>
                                         <attribute name='{6}'/>
-                                        <attribute name='{7}'/>
                                         <filter type='and'>
-                                            <condition attribute='{8}' operator='eq' value='0' />
-                                            <condition attribute='{9}' operator='eq' value='{0}' />
+                                            <condition attribute='{7}' operator='eq' value='0' />
+                                            <condition attribute='{8}' operator='eq' value='{0}' />
                                         </filter>
                                     </entity>
                     </fetch>",
-                entityName, bupa_autonumber.EntityLogicalName, FieldName.AutoNumber.AutoNumberId, FieldName.AutoNumber.AutoNumberName,
-                FieldName.AutoNumber.AutoNumberFieldName, FieldName.AutoNumber.AutoNumberStringFormat, FieldName.AutoNumber.AutoNumberNextNumber,
-                FieldName.AutoNumber.AutoNumberExecuteOptionSetTextIs, FieldName.AutoNumber.AutoNumberStateCode, FieldName.AutoNumber.AutoNumberEntityName);
+                entityName, new_autonumbers.EntityLogicalName, "new_autonumbersid", "new_name",
+                "new_fieldname", "new_autonumberstringformat", "new_nextnumber",
+                "statecode", "new_entityname");
 
             var fetch = new Microsoft.Xrm.Sdk.Query.FetchExpression(fetchXml);
 
@@ -188,7 +185,7 @@ namespace AutoNumberGeneration
             if (results != null && results.Entities.Count > 0)
             {
                 var item = results.Entities[0];
-                return item.ToEntity<bupa_autonumber>();
+                return item.ToEntity<new_autonumbers>();
             }
 
             return null;
