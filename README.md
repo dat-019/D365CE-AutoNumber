@@ -8,7 +8,7 @@ The Auto number generation is required for many entities which should cater for 
 
 | Entity        | Entity Field Label    | Format                  | Prefix  | Increment      | Example     |
 | ------------- |:----------------------|:------------------------|:--------|:---------------|:------------|
-| Account       | Account_Id            |Prefix + 8 digits number |ORG-     |last number + 1 |ORG-00000001 |
+| Account       | Account_Id            |Prefix + 8 digits number |ORG-     |last number + 1 |ACC-00000001 |
 | Contact       | Contact_Id            |Prefix + 8 digits number |PER-     |last number + 1 |PER-00000001 |
 
 ## Design Notes
